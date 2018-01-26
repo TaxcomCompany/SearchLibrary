@@ -37,7 +37,7 @@ import ru.taxcom.mobile.android.searchlibrary.R;
 import ru.taxcom.mobile.android.searchlibrary.R2;
 import ru.taxcom.mobile.android.searchlibrary.util.KeyBoardUtils;
 import ru.taxcom.mobile.android.searchlibrary.util.SearchValidation;
-import ru.taxcom.mobile.android.searchlibrary.util.textview.CustomEditText;
+import ru.taxcom.mobile.android.searchlibrary.util.textview.RegularEditText;
 
 public class SearchComponent extends FrameLayout implements SearchComponentView {
 
@@ -62,11 +62,11 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     @BindView(R2.id.shadow)
     RelativeLayout mShadow;
     @BindView(R2.id.content_search)
-    RelativeLayout contentSearch;
+    RelativeLayout mContentSearch;
     @BindView(R2.id.edit_text_search)
-    CustomEditText searchEditText;
+    RegularEditText mSearchEditText;
     @BindView(R2.id.image_clear_search)
-    ImageView clearSearch;
+    ImageView mClearSearch;
     @Nullable
     @BindView(R2.id.search_list)
     ListView mListView;
@@ -81,11 +81,11 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         mContext = context;
 
         final LayoutInflater factory = LayoutInflater.from(context);
-        factory.inflate(isDefaultSearch ? R.layout.serchview_layout : R.layout.searchview_with_dropdown, this);
+        factory.inflate(isDefaultSearch ? R.layout.serchview : R.layout.searchview_with_dropdown, this);
         ButterKnife.bind(this);
 
-        searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        mSearchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -107,7 +107,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
             public void afterTextChanged(Editable s) {
             }
         });
-        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
+        mSearchEditText.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
                 hideKeyBoard();
             }
@@ -154,8 +154,8 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     }
 
     @Override
-    public CustomEditText getSearchEditText() {
-        return searchEditText;
+    public RegularEditText getSearchEditText() {
+        return mSearchEditText;
     }
 
     @Override
@@ -198,13 +198,13 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
 
     @Override
     public void addTextChangedListener(TextWatcher textWatcher) {
-        searchEditText.addTextChangedListener(textWatcher);
+        mSearchEditText.addTextChangedListener(textWatcher);
     }
 
     @Override
     public void setText(String filterString) {
-        searchEditText.setText(filterString);
-        searchEditText.setSelection(filterString.length());
+        mSearchEditText.setText(filterString);
+        mSearchEditText.setSelection(filterString.length());
     }
 
     @Override
@@ -225,7 +225,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
             mOnSearchListener.searchViewClosed();
         }
         hideKeyBoard();
-        contentSearch.setVisibility(View.GONE);
+        mContentSearch.setVisibility(View.GONE);
     }
 
     @Override
@@ -234,32 +234,32 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         if (mOnSearchListener != null) {
             mOnSearchListener.searchViewOpened();
         }
-        contentSearch.setVisibility(VISIBLE);
-        contentSearch.setEnabled(false);
+        mContentSearch.setVisibility(VISIBLE);
+        mContentSearch.setEnabled(false);
 
-        searchEditText.requestFocus();
+        mSearchEditText.requestFocus();
         showKeyBoard();
     }
 
     @Override
     public boolean isSearchViewVisible() {
-        return contentSearch.getVisibility() == View.VISIBLE;
+        return mContentSearch.getVisibility() == View.VISIBLE;
     }
 
     @Override
     public void setTextHint(String hint) {
-        searchEditText.setHint(hint);
+        mSearchEditText.setHint(hint);
     }
 
     @Override
     public void setOnActionListener(EditText.OnEditorActionListener listener) {
-        searchEditText.setOnEditorActionListener(listener);
+        mSearchEditText.setOnEditorActionListener(listener);
     }
 
     @Override
-    public void setOnBackPressedListener(CustomEditText.OnBackListener listener) {
+    public void setOnBackPressedListener(RegularEditText.OnBackListener listener) {
         if (listener != null) {
-            searchEditText.setOnBackListener(listener);
+            mSearchEditText.setOnBackListener(listener);
         }
     }
 
@@ -271,15 +271,15 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     }
 
     private void toggleClearSearchButton(final CharSequence query) {
-        clearSearch.setVisibility(!TextUtils.isEmpty(query) ? View.VISIBLE : View.GONE);
+        mClearSearch.setVisibility(!TextUtils.isEmpty(query) ? View.VISIBLE : View.GONE);
     }
 
     private void hideKeyBoard() {
-        KeyBoardUtils.hideKeyboard(getContext(), searchEditText);
+        KeyBoardUtils.hideKeyboard(getContext(), mSearchEditText);
     }
 
     private void showKeyBoard() {
-        KeyBoardUtils.showKeyboard(getContext(), searchEditText);
+        KeyBoardUtils.showKeyboard(getContext(), mSearchEditText);
     }
 
     @OnClick({R2.id.image_back_search, R2.id.image_clear_search})
@@ -297,8 +297,8 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     }
 
     private void clearSearch() {
-        searchEditText.setText("");
-        clearSearch.setVisibility(View.GONE);
+        mSearchEditText.setText("");
+        mClearSearch.setVisibility(View.GONE);
     }
 
     @Override
@@ -327,9 +327,9 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     @Override
     public void checkSearchInputAndRefresh() {
         if (!isSearchEmpty()) {
-            String text = searchEditText.getText().toString();
-            searchEditText.setText(text);
-            searchEditText.setSelection(text.length());
+            String text = mSearchEditText.getText().toString();
+            mSearchEditText.setText(text);
+            mSearchEditText.setSelection(text.length());
             display();
         }
     }

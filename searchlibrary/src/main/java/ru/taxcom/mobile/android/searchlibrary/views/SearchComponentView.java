@@ -15,7 +15,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import ru.taxcom.mobile.android.searchlibrary.util.SearchValidation;
-import ru.taxcom.mobile.android.searchlibrary.util.textview.CustomEditText;
+import ru.taxcom.mobile.android.searchlibrary.util.textview.RegularEditText;
 
 public interface SearchComponentView {
     /**
@@ -43,7 +43,7 @@ public interface SearchComponentView {
      */
     void addSearchViewOnToolbar(@NonNull Activity activity, @LayoutRes int res);
 
-    CustomEditText getSearchEditText();
+    RegularEditText getSearchEditText();
 
     /**
      * устанавливает выпадающий список и адаптер для него
@@ -112,7 +112,7 @@ public interface SearchComponentView {
      *
      * @param listener
      */
-    void setOnBackPressedListener(CustomEditText.OnBackListener listener);
+    void setOnBackPressedListener(RegularEditText.OnBackListener listener);
 
     /**
      * добавляет listener для получения событий ввода текста

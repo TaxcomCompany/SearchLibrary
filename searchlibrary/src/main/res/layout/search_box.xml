@@ -18,7 +18,7 @@
         android:paddingTop="8dp"
         app:srcCompat="@drawable/ic_arrow_cancel_search" />
 
-    <ru.taxcom.mobile.android.searchlibrary.util.textview.CustomEditText
+    <ru.taxcom.mobile.android.searchlibrary.util.textview.RegularEditText
         android:id="@+id/edit_text_search"
         android:layout_width="0dp"
         android:layout_height="match_parent"

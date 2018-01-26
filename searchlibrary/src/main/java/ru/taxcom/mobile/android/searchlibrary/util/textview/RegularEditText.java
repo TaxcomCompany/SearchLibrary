@@ -6,24 +6,24 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
-public class CustomEditText extends AppCompatEditText {
+public class RegularEditText extends AppCompatEditText {
     public interface OnBackListener {
         void onBackListener();
     }
 
     private OnBackListener mOnBackListener;
 
-    public CustomEditText(Context context) {
+    public RegularEditText(Context context) {
         super(context);
         applyCustomFont(context);
     }
 
-    public CustomEditText(Context context, AttributeSet attrs) {
+    public RegularEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         applyCustomFont(context);
     }
 
-    public CustomEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RegularEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         applyCustomFont(context);
     }

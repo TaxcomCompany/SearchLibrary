@@ -1,0 +1,6 @@
+<resources>
+    <string name="empty_search_and_filter">На данный момент нет %1$s соответствующих поисковому запросу \"%2$s\" и параметрам фильтрации</string>
+    <string name="empty_search">На данный момент нет %1$s соответствующих поисковому запросу \"%2$s\"</string>
+    <string name="empty_filter">На данный момент нет %1$s соответствующих параметрам фильтрации</string>
+    <string name="empty_data">Нет данных</string>
+</resources>

@@ -112,6 +112,10 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
                 hideKeyBoard();
             }
         });
+
+        if (mShadow != null) {
+            mShadow.setOnClickListener(view -> hide());
+        }
     }
 
     public SearchComponent(final Context context, final AttributeSet attrs) {

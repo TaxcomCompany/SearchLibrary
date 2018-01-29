@@ -14,7 +14,7 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'searchlibrary'
+    bintrayRepo = 'search'
     bintrayName = 'searchlibrary'   // Has to be same as your library module name
 
     publishedGroupId = 'ru.taxcom.mobile.android'

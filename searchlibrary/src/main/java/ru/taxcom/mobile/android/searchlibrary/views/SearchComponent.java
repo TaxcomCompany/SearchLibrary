@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
@@ -28,13 +27,9 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import ru.taxcom.mobile.android.searchlibrary.R;
-import ru.taxcom.mobile.android.searchlibrary.R2;
 import ru.taxcom.mobile.android.searchlibrary.util.KeyBoardUtils;
 import ru.taxcom.mobile.android.searchlibrary.util.SearchValidation;
 import ru.taxcom.mobile.android.searchlibrary.util.textview.RegularEditText;
@@ -54,27 +49,26 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     private SearchComponent.onSearchListener mOnSearchListener;
     private Context mContext;
     private boolean mDropDownEnabled;
-
-    @Nullable
-    @BindView(R2.id.root)
-    RelativeLayout mRoot;
-    @Nullable
-    @BindView(R2.id.shadow)
-    RelativeLayout mShadow;
-    @BindView(R2.id.content_search)
-    RelativeLayout mContentSearch;
-    @BindView(R2.id.edit_text_search)
-    RegularEditText mSearchEditText;
-    @BindView(R2.id.image_clear_search)
-    ImageView mClearSearch;
-    @Nullable
-    @BindView(R2.id.search_list)
-    ListView mListView;
-    @Nullable
-    @BindView(R2.id.dropdown)
-    LinearLayout mDropDownLayout;
-
+    private RelativeLayout mShadow;
+    private RelativeLayout mContentSearch;
+    private RegularEditText mSearchEditText;
+    private ImageView mClearSearch;
+    private ListView mListView;
+    private LinearLayout mDropDownLayout;
     private SearchValidation mValidation;
+
+    private void initViews() {
+        mShadow = findViewById(R.id.shadow);
+        mContentSearch = findViewById(R.id.content_search);
+        mSearchEditText = findViewById(R.id.edit_text_search);
+        mClearSearch = findViewById(R.id.image_clear_search);
+        mListView = findViewById(R.id.search_list);
+        mDropDownLayout = findViewById(R.id.dropdown);
+
+        ImageView backSearch = findViewById(R.id.image_back_search);
+        backSearch.setOnClickListener(this::onClick);
+        mClearSearch.setOnClickListener(this::onClick);
+    }
 
     public SearchComponent(final Context context, boolean isDefaultSearch) {
         this(context, null);
@@ -82,7 +76,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
 
         final LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(isDefaultSearch ? R.layout.serchview : R.layout.searchview_with_dropdown, this);
-        ButterKnife.bind(this);
+        initViews();
 
         mSearchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
@@ -286,7 +280,6 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         KeyBoardUtils.showKeyboard(getContext(), mSearchEditText);
     }
 
-    @OnClick({R2.id.image_back_search, R2.id.image_clear_search})
     public void onClick(View v) {
         final int id = v.getId();
         if (id == R.id.image_back_search) {
@@ -344,12 +337,17 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     }
 
     @Override
-    public String getSearchEmptyText(boolean isEmptyList, boolean isFilterActive, String dataText) {
-        return mValidation.getEmptyText(isEmptyList, getSearchEditText().getText().toString(), isFilterActive, dataText);
+    public String getSearchEmptyText(boolean isFilterActive, String dataText) {
+        return mValidation.getEmptyText(getSearchEditText().getText().toString(), isFilterActive, dataText);
     }
 
     @Override
     public Observable<CharSequence> getObservable() {
         return RxTextView.textChanges(getSearchEditText());
+    }
+
+    @Override
+    public void dispose() {
+        mValidation.dispose();
     }
 }

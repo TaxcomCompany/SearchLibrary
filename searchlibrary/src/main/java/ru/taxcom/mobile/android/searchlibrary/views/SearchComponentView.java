@@ -155,7 +155,6 @@ public interface SearchComponentView {
     /**
      * проверяет есть ли в строке поиска значение и производит поиск по локальному списку
      */
-
     void checkSearchInputAndRefresh();
 
     boolean isSearchEmpty();
@@ -163,14 +162,18 @@ public interface SearchComponentView {
     /**
      * возвращает строку заглушку при пустом результате
      *
-     * @param isEmptyList
      * @param isFilterActive
-     * @param dataText       Привемер:
-     *                       На данный момент нет dataText соответствующих поисковому запросу \"%2$s\" и параметрам фильтрации
+     * @param dataText       Пример:
+     *                       На данный момент нет dataText, соответствующих поисковому запросу \"%2$s\" и параметрам фильтрации
      * @return
      */
-    String getSearchEmptyText(boolean isEmptyList, boolean isFilterActive, String dataText);
+    String getSearchEmptyText(boolean isFilterActive, String dataText);
 
     Observable<CharSequence> getObservable();
+
+    /**
+     * отписывается от наблюдения за изменением в строке поиска
+     */
+    void dispose();
 }
 

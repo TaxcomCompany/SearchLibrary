@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -20,6 +21,7 @@ public class SearchValidation {
 
     private final Context mContext;
     private List mList;
+    private Disposable mDisposable;
 
     public SearchValidation(@NonNull Context context) {
         mContext = context;
@@ -43,7 +45,8 @@ public class SearchValidation {
 
     public <T> void setFilteringBySearch(Observable<CharSequence> observable,
                                          Consumer<List<T>> result, Function<String, List<T>> mapper) {
-        observable
+        dispose();
+        mDisposable = observable
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .map(this::mapSearch)
                 .map(mapper)
@@ -66,20 +69,22 @@ public class SearchValidation {
         return result;
     }
 
-    public String getEmptyText(boolean isEmptyList, String search, boolean isFilterActive, String dataText) {
-        if (!isEmptyList) {
-            return null;
+    public String getEmptyText(String search, boolean isFilterActive, String dataText) {
+        boolean isSearchActive = !isEmpty(search);
+        if (isFilterActive && isSearchActive) {
+            return mContext.getString(R.string.empty_search_and_filter, dataText, search);
+        } else if (isFilterActive) {
+            return mContext.getString(R.string.empty_filter, dataText);
+        } else if (isSearchActive) {
+            return mContext.getString(R.string.empty_search, dataText, search);
         } else {
-            boolean isSearchActive = !isEmpty(search);
-            if (isFilterActive && isSearchActive) {
-                return mContext.getString(R.string.empty_search_and_filter, dataText, search);
-            } else if (isFilterActive) {
-                return mContext.getString(R.string.empty_filter, dataText);
-            } else if (isSearchActive) {
-                return mContext.getString(R.string.empty_search, dataText, search);
-            } else {
-                return mContext.getString(R.string.empty_data);
-            }
+            return mContext.getString(R.string.empty_data);
+        }
+    }
+
+    public void dispose() {
+        if (mDisposable != null) {
+            mDisposable.dispose();
         }
     }
 }

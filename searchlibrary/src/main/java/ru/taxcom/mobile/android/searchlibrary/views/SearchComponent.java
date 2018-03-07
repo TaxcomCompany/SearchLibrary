@@ -348,6 +348,8 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
 
     @Override
     public void dispose() {
-        mValidation.dispose();
+        if (mValidation != null) {
+            mValidation.dispose();
+        }
     }
 }

@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Search.iml" filepath="$PROJECT_DIR$/Search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SearchLibrary.iml" filepath="$PROJECT_DIR$/SearchLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/searchlibrary/searchlibrary.iml" filepath="$PROJECT_DIR$/searchlibrary/searchlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/searchlibrary/searchlibrary.iml" filepath="$PROJECT_DIR$/searchlibrary/searchlibrary.iml" />
     </modules>
   </component>

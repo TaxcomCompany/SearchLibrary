@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -14,13 +16,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -53,7 +53,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     private RelativeLayout mContentSearch;
     private RegularEditText mSearchEditText;
     private ImageView mClearSearch;
-    private ListView mListView;
+    private RecyclerView mListView;
     private LinearLayout mDropDownLayout;
     private SearchValidation mValidation;
 
@@ -62,7 +62,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         mContentSearch = findViewById(R.id.content_search);
         mSearchEditText = findViewById(R.id.edit_text_search);
         mClearSearch = findViewById(R.id.image_clear_search);
-        mListView = findViewById(R.id.search_list);
+        mListView = findViewById(R.id.list);
         mDropDownLayout = findViewById(R.id.dropdown);
 
         ImageView backSearch = findViewById(R.id.image_back_search);
@@ -157,17 +157,12 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     }
 
     @Override
-    public void setAdapter(BaseAdapter adapter) {
+    public void setAdapter(RecyclerView.Adapter adapter) {
         if (adapter != null) {
             mDropDownEnabled = true;
+            mListView.setHasFixedSize(false);
+            mListView.setLayoutManager(new LinearLayoutManager(getContext()));
             mListView.setAdapter(adapter);
-        }
-    }
-
-    @Override
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
-        if (listener != null) {
-            mListView.setOnItemClickListener(listener);
         }
     }
 

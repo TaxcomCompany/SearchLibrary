@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,14 +51,7 @@ public interface SearchComponentView {
      *
      * @param adapter
      */
-    void setAdapter(BaseAdapter adapter);
-
-    /**
-     * получение событий нажатия по элементу из выпадающего списка
-     *
-     * @param listener
-     */
-    void setOnItemClickListener(AdapterView.OnItemClickListener listener);
+    void setAdapter(RecyclerView.Adapter adapter);
 
     /**
      * скрывает выпадающий список

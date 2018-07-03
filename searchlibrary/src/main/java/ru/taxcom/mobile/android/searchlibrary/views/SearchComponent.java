@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
@@ -16,12 +15,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -42,8 +41,6 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
 
         void searchViewOpened();
 
-        void onTextChanged(String s);
-
     }
 
     private SearchComponent.onSearchListener mOnSearchListener;
@@ -53,8 +50,8 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     private RelativeLayout mContentSearch;
     private RegularEditText mSearchEditText;
     private ImageView mClearSearch;
-    private RecyclerView mListView;
-    private LinearLayout mDropDownLayout;
+    private RecyclerView mList;
+    private RelativeLayout mDropDownLayout;
     private SearchValidation mValidation;
 
     private void initViews() {
@@ -62,7 +59,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         mContentSearch = findViewById(R.id.content_search);
         mSearchEditText = findViewById(R.id.edit_text_search);
         mClearSearch = findViewById(R.id.image_clear_search);
-        mListView = findViewById(R.id.list);
+        mList = findViewById(R.id.list);
         mDropDownLayout = findViewById(R.id.dropdown);
 
         ImageView backSearch = findViewById(R.id.image_back_search);
@@ -92,9 +89,6 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
                     toggleDropDownList(s);
                 }
 
-                if (mOnSearchListener != null) {
-                    mOnSearchListener.onTextChanged(s.toString());
-                }
             }
 
             @Override
@@ -160,9 +154,35 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (adapter != null) {
             mDropDownEnabled = true;
-            mListView.setHasFixedSize(false);
-            mListView.setLayoutManager(new LinearLayoutManager(getContext()));
-            mListView.setAdapter(adapter);
+            mList.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public RecyclerView getList() {
+        return mList;
+    }
+
+    @Override
+    public void setVisibleError(boolean visibleError, boolean visibleBtnRetry) {
+        if (isDropDownVisible()) {
+            findViewById(R.id.searchErrorView)
+                    .setVisibility(visibleError ? View.VISIBLE : View.GONE);
+            findViewById(R.id.searchRetryButton)
+                    .setVisibility(visibleBtnRetry ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        TextView errorMessage = findViewById(R.id.searchErrorMessage);
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void setOnRetryClick(OnClickListener listener) {
+        if (mDropDownEnabled) {
+            findViewById(R.id.searchRetryButton).setOnClickListener(listener);
         }
     }
 
@@ -180,6 +200,11 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
             mDropDownLayout.setVisibility(VISIBLE);
             mShadow.setVisibility(VISIBLE);
         }
+    }
+
+    @Override
+    public boolean isDropDownVisible() {
+        return mDropDownLayout.getVisibility() == View.VISIBLE;
     }
 
     @Override

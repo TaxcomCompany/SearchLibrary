@@ -23,7 +23,7 @@
             android:id="@+id/search_box"
             layout="@layout/search_box" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +46,6 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

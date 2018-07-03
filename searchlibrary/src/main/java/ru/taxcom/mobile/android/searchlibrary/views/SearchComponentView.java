@@ -7,8 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 
 import java.util.List;
@@ -53,6 +51,14 @@ public interface SearchComponentView {
      */
     void setAdapter(RecyclerView.Adapter adapter);
 
+    RecyclerView getList();
+
+    void setVisibleError(boolean visibleError, boolean visibleBtnRetry);
+
+    void setErrorMessage(String error);
+
+    void setOnRetryClick(View.OnClickListener listener);
+
     /**
      * скрывает выпадающий список
      */
@@ -62,6 +68,8 @@ public interface SearchComponentView {
      * отображает выпадающий список
      */
     void showDropDownList();
+
+    boolean isDropDownVisible();
 
     void setOnSearchListener(SearchComponent.onSearchListener onSearchListener);
 

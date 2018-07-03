@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -84,11 +83,6 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 toggleClearSearchButton(s);
-
-                if (mDropDownEnabled) {
-                    toggleDropDownList(s);
-                }
-
             }
 
             @Override
@@ -112,14 +106,6 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
 
     public SearchComponent(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-    }
-
-    private void toggleDropDownList(CharSequence s) {
-        if (TextUtils.isEmpty(s)) {
-            hideDropDownList();
-        } else {
-            showDropDownList();
-        }
     }
 
     @Override

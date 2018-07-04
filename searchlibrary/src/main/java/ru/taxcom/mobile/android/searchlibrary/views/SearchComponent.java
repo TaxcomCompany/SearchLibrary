@@ -220,6 +220,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     public void hide() {
         hideSearch();
         clearSearch();
+        hideDropDownList();
     }
 
     @Override

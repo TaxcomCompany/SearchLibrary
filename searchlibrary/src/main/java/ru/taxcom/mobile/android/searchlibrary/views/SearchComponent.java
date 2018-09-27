@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -209,6 +210,11 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     public void setText(String filterString) {
         mSearchEditText.setText(filterString);
         mSearchEditText.setSelection(filterString.length());
+    }
+
+    @Override
+    public void setMaxLength(Integer maxLength) {
+        mSearchEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
     }
 
     @Override

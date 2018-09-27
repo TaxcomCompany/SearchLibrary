@@ -131,6 +131,13 @@ public interface SearchComponentView {
     void setText(String filterString);
 
     /**
+     * устанавливает максимальную длину строки в editText
+     *
+     * @param maxLength
+     */
+    void setMaxLength(Integer maxLength);
+
+    /**
      * получение основного контента поиска
      *
      * @return view поиска

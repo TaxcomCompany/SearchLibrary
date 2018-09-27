@@ -30,6 +30,7 @@
         android:inputType="textCapWords"
         android:paddingEnd="8dp"
         android:paddingStart="12dp"
+        android:maxLength="100"
         android:textColorHint="@color/textSearchHint"
         android:textSize="17sp" />
 

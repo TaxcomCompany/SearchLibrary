@@ -168,6 +168,17 @@ public interface SearchComponentView {
 
     boolean isSearchEmpty();
 
+
+    /**
+     * устанавливает отступы для SearchView
+     *
+     * @param left левый margin
+     * @param top  верхний margin
+     * @param right правый margin
+     * @param bottom нижний margin
+     */
+    void setMarginSearchView(int left, int top, int right, int bottom);
+
     /**
      * возвращает строку заглушку при пустом результате
      *

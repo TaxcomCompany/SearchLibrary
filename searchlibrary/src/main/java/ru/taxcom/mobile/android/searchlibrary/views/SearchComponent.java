@@ -52,6 +52,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     private ImageView mClearSearch;
     private RecyclerView mList;
     private RelativeLayout mDropDownLayout;
+    private RelativeLayout mRootSearchView;
     private SearchValidation mValidation;
 
     private void initViews() {
@@ -61,6 +62,8 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
         mClearSearch = findViewById(R.id.image_clear_search);
         mList = findViewById(R.id.list);
         mDropDownLayout = findViewById(R.id.dropdown);
+        mRootSearchView = findViewById(R.id.root);
+
 
         ImageView backSearch = findViewById(R.id.image_back_search);
         backSearch.setOnClickListener(this::onClick);
@@ -347,6 +350,13 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     @Override
     public boolean isSearchEmpty() {
         return TextUtils.isEmpty(getSearchEditText().getText().toString());
+    }
+
+    @Override
+    public void setMarginSearchView(int left, int top, int right, int bottom) {
+        FrameLayout.LayoutParams FrameLayout = (FrameLayout.LayoutParams) mRootSearchView.getLayoutParams();
+        FrameLayout.setMargins(left, top, right, bottom);  // left, top, right, bottom
+        mRootSearchView.setLayoutParams(FrameLayout);
     }
 
     @Override

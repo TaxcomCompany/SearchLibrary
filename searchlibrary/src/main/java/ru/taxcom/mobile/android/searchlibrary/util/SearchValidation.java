@@ -20,6 +20,7 @@ import static android.text.TextUtils.isEmpty;
 public class SearchValidation {
 
     private final Context mContext;
+
     private List mList;
     private Disposable mDisposable;
 

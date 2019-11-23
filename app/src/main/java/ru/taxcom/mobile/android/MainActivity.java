@@ -1,7 +1,8 @@
 package ru.taxcom.mobile.android;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import ru.taxcom.mobile.android.searchlibrary.views.SearchComponent;
 import ru.taxcom.mobile.android.searchlibrary.views.SearchComponentView;

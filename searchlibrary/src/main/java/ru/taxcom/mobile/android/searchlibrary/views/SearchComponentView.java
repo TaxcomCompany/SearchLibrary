@@ -1,13 +1,14 @@
 package ru.taxcom.mobile.android.searchlibrary.views;
 
 import android.app.Activity;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 

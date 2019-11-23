@@ -5,7 +5,7 @@
     android:layout_height="40dp"
     android:layout_margin="8dp">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_back_search"
         android:layout_width="48dp"
         android:layout_height="40dp"
@@ -34,7 +34,7 @@
         android:textColorHint="@color/textSearchHint"
         android:textSize="17sp" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_clear_search"
         android:layout_width="48dp"
         android:layout_height="40dp"

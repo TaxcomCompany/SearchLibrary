@@ -3,10 +3,6 @@ package ru.taxcom.mobile.android.searchlibrary.views;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -21,6 +17,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -139,6 +140,7 @@ public class SearchComponent extends FrameLayout implements SearchComponentView 
     public RegularEditText getSearchEditText() {
         return mSearchEditText;
     }
+
 
     @Override
     public void setAdapter(RecyclerView.Adapter adapter) {

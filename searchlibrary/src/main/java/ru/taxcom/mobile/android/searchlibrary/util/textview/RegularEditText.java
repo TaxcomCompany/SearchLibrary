@@ -2,9 +2,10 @@ package ru.taxcom.mobile.android.searchlibrary.util.textview;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 public class RegularEditText extends AppCompatEditText {
     public interface OnBackListener {
